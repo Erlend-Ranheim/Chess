@@ -7,16 +7,27 @@
 
 #include "Board.h"
 #include "Move.h"
-#include "vector"
+#include <vector>
 
 class Game {
-
     Board board;
+
+    void generateKingMoves(int r, int c, std::vector<Move>& legalMoves) const;
+
+    void generateQueenMoves(int r, int c, std::vector<Move>& legalMoves) const;
+
+    void generateRookMoves(int r, int c, std::vector<Move>& legalMoves) const;
+
+    void generateBishopMoves(int r, int c, std::vector<Move>& legalMoves) const;
+
+    void generateKnightMoves(int r, int c, std::vector<Move>& legalMoves) const;
+
+    void generatePawnMoves(int r, int c, std::vector<Move>& legalMoves) const;
 
     public:
         Game();
-        std::vector<Move> generateLegalMoves();
-        bool checkLegalMove();
+        std::vector<Move> generateLegalMoves() const;
+
 
 };
 

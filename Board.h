@@ -25,13 +25,12 @@ enum class PieceType : int {
 
 class Board {
     PieceType board[8][8];
-    Board();
 
     public:
         bool hasPiece(int x, int y) const;
         PieceType getPiece(int x, int y) const;
         void movePiece(int startX, int startY, int endX, int endY);
-
+        Board();
 };
 
 
