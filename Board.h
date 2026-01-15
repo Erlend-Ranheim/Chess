@@ -27,6 +27,8 @@ class Board {
     PieceType board[8][8];
 
     public:
+
+        const PieceType (&getBoard())[8][8];
         bool hasPiece(int x, int y) const;
         PieceType getPiece(int x, int y) const;
         void movePiece(int startX, int startY, int endX, int endY);

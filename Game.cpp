@@ -7,7 +7,6 @@
 #include <iostream>
 
 Game::Game() {
-
 }
 
 
@@ -38,33 +37,45 @@ std::vector<Move> Game::generateLegalMoves() const {
             PieceType piece = board.getPiece(r, c);
             switch (piece) {
                 case PieceType::W_King:
+                    generateKingMoves(r,c,legalMoves, true);
+                    break;
                 case PieceType::B_King:
-                    generateKingMoves(r,c,legalMoves);
+                    generateKingMoves(r,c,legalMoves, false);
                     break;
 
                 case PieceType::W_Queen:
+                    generateQueenMoves(r,c,legalMoves, true);
+                    break;
                 case PieceType::B_Queen:
-                    generateQueenMoves(r,c,legalMoves);
+                    generateQueenMoves(r,c,legalMoves, false);
                     break;
 
                 case PieceType::W_Bishop:
+                    generateBishopMoves(r,c,legalMoves, true);
+                    break;
                 case PieceType::B_Bishop:
-                    generateBishopMoves(r,c,legalMoves);
+                    generateBishopMoves(r,c,legalMoves, false);
                     break;
 
                 case PieceType::W_Knight:
+                    generateKnightMoves(r,c,legalMoves, true);
+                    break;
                 case PieceType::B_Knight:
-                    generateKnightMoves(r,c,legalMoves);
+                    generateKnightMoves(r,c,legalMoves, false);
                     break;
 
                 case PieceType::W_Rook:
+                    generateRookMoves(r,c,legalMoves, true);
+                    break;
                 case PieceType::B_Rook:
-                    generateRookMoves(r,c,legalMoves);
+                    generateRookMoves(r,c,legalMoves, false);
                     break;
 
                 case PieceType::W_Pawn:
+                    generatePawnMoves(r,c,legalMoves, true);
+                    break;
                 case PieceType::B_Pawn:
-                    generatePawnMoves(r,c,legalMoves);
+                    generatePawnMoves(r,c,legalMoves, false);
                     break;
 
                 case(PieceType::NoPiece):
@@ -83,26 +94,27 @@ std::vector<Move> Game::generateLegalMoves() const {
 }
 
 
-void Game::generateKingMoves(int r, int c, std::vector<Move>& legalMoves) const {
+void Game::generateKingMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const {
 
 }
 
-void Game::generateQueenMoves(int r, int c, std::vector<Move>& legalMoves) const{}
+void Game::generateQueenMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const{}
 
-void Game::generateRookMoves(int r, int c, std::vector<Move>& legalMoves) const{}
+void Game::generateRookMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const{}
 
-void Game::generateBishopMoves(int r, int c, std::vector<Move>& legalMoves) const{}
+void Game::generateBishopMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const{}
 
-void Game::generateKnightMoves(int r, int c, std::vector<Move>& legalMoves) const{}
+void Game::generateKnightMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const {
+    PieceType Knight = board.getPiece(r, c);
+}
 
-void Game::generatePawnMoves(int r, int c, std::vector<Move>& legalMoves) const {
+void Game::generatePawnMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const {
     PieceType pawn = board.getPiece(r,c);
 
-    bool White = isWhite(pawn);
 
-    const int dir = White ? +1 : -1;
+    const int dir = isWhite ? +1 : -1;
 
-    const int startRow = White ? 1 : 6;
+    const int startRow = isWhite ? 1 : 6;
 
 
     int r1 = r + dir;

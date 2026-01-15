@@ -16,32 +16,36 @@ Board::Board() {
 
     //Places white pawns
     for (int i = 0 ; i < 8; i++) {
-        board[1][i] = PieceType::W_Pawn;
+        board[6][i] = PieceType::W_Pawn;
     }
 
     //Places black pawns
     for (int i = 0 ; i < 8; i++) {
-        board[6][i] = PieceType::B_Pawn;
+        board[1][i] = PieceType::B_Pawn;
     }
 
     //Places rest of pieces
-    board[0][0] = PieceType::W_Rook;
-    board[0][1] = PieceType::W_Knight;
-    board[0][2] = PieceType::W_Bishop;
-    board[0][3] = PieceType::W_Queen;
-    board[0][4] = PieceType::W_King;
-    board[0][5] = PieceType::W_Bishop;
-    board[0][6] = PieceType::W_Knight;
-    board[0][7] = PieceType::W_Rook;
+    board[7][0] = PieceType::W_Rook;
+    board[7][1] = PieceType::W_Knight;
+    board[7][2] = PieceType::W_Bishop;
+    board[7][3] = PieceType::W_Queen;
+    board[7][4] = PieceType::W_King;
+    board[7][5] = PieceType::W_Bishop;
+    board[7][6] = PieceType::W_Knight;
+    board[7][7] = PieceType::W_Rook;
 
-    board[7][0] = PieceType::B_Rook;
-    board[7][1] = PieceType::B_Knight;
-    board[7][2] = PieceType::B_Bishop;
-    board[7][3] = PieceType::B_Queen;
-    board[7][4] = PieceType::B_King;
-    board[7][5] = PieceType::B_Knight;
-    board[7][6] = PieceType::B_Bishop;
-    board[7][7] = PieceType::B_Rook;
+    board[0][0] = PieceType::B_Rook;
+    board[0][1] = PieceType::B_Knight;
+    board[0][2] = PieceType::B_Bishop;
+    board[0][3] = PieceType::B_Queen;
+    board[0][4] = PieceType::B_King;
+    board[0][5] = PieceType::B_Knight;
+    board[0][6] = PieceType::B_Bishop;
+    board[0][7] = PieceType::B_Rook;
+}
+
+const PieceType (&Board::getBoard())[8][8] {
+    return board;
 }
 
 bool Board::hasPiece(int x, int y) const{

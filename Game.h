@@ -12,22 +12,22 @@
 class Game {
     Board board;
 
-    void generateKingMoves(int r, int c, std::vector<Move>& legalMoves) const;
+    void generateKingMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const;
 
-    void generateQueenMoves(int r, int c, std::vector<Move>& legalMoves) const;
+    void generateQueenMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const;
 
-    void generateRookMoves(int r, int c, std::vector<Move>& legalMoves) const;
+    void generateRookMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const;
 
-    void generateBishopMoves(int r, int c, std::vector<Move>& legalMoves) const;
+    void generateBishopMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const;
 
-    void generateKnightMoves(int r, int c, std::vector<Move>& legalMoves) const;
+    void generateKnightMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const;
 
-    void generatePawnMoves(int r, int c, std::vector<Move>& legalMoves) const;
+    void generatePawnMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const;
 
     public:
         Game();
         std::vector<Move> generateLegalMoves() const;
-
+        const Board& getBoard() const {return board;}
 
 };
 
