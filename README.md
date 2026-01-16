@@ -2,13 +2,14 @@ C++ Chess (Work in Progress)
 
 This is a chess game built from scratch in C++, focused on clean structure, low-level control, and a solid foundation for future features. The project currently handles the core board + piece rendering and is evolving toward a complete playable experience.
 
-Planned Features
+Planned Features include 
 
-- Minimax-based engine play (with upgrades like alpha–beta pruning later on)
+- Smoother UX improvements (move highlighting, legal move previews and captures)
+
+- Minimax-based engine play (with upgrades like alpha–beta pruning)
 
 - Adaptive music that reacts to the game state, building tension in critical moments (checks, hanging pieces, endgames, etc.)
 
-- Smoother UX improvements (move highlighting, legal move previews, captures, and more)
 
 Goal
 
