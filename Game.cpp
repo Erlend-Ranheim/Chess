@@ -19,7 +19,7 @@ static bool isWhite(PieceType p) {
            p == PieceType::W_Bishop || p == PieceType::W_Queen || p == PieceType::W_King;
 }
 
-static void printMoveList(std::vector<Move>& moves) {
+static void printMoveList(const std::vector<Move>& moves) {
     for (Move m : moves) {
         std::cout << "(" << m.startRow << "," << m.startCol << ") -> "
                   << "(" << m.endRow   << "," << m.endCol   << ")\n";
@@ -95,33 +95,154 @@ std::vector<Move> Game::generateLegalMoves() const {
 
 
 void Game::generateKingMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const {
+    for (int dr = -1; dr <= 1; dr++) {
+        for (int dc = -1; dc <= 1; dc++) {
 
+            //We skip the square the king is on
+            if (dr == 0 && dc == 0) continue;
+
+            //The alternative squares
+            int rr = r + dr;
+            int cc = c + dc;
+
+            if (!inBounds(rr,cc)) continue;
+
+            PieceType target = board.getPiece(rr,cc);
+            if (target == PieceType::NoPiece || isWhite != ::isWhite(target)) {
+                legalMoves.push_back(Move(r,c,rr,cc));
+            }
+
+        }
+    }
 }
 
-void Game::generateQueenMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const{}
+void Game::generateQueenMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const {
+    const int dirs[8][2] = {
+        {1,0},{-1,0}, {0,1}, {0,-1}, //Horizontal & verticals
+        {1,1}, {1,-1}, {-1,1}, {-1,-1} //Diagonals
+    };
 
-void Game::generateRookMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const{}
+    for (auto& dir : dirs) {
+        int rr = r + dir[0];
+        int cc = c + dir[1];
 
-void Game::generateBishopMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const{}
+        while (inBounds(rr,cc)) {
+            PieceType target = board.getPiece(rr,cc);
+
+            if (target == PieceType::NoPiece) {
+                legalMoves.push_back(Move(r,c,rr,cc));
+            }else {
+                if (isWhite != ::isWhite(target)) {
+                    legalMoves.push_back(Move(r,c,rr,cc));
+                }
+                break;
+            }
+            rr += dir[0];
+            cc += dir[1];
+        }
+    }
+}
+
+void Game::generateRookMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const {
+    const int dirs[4][2] = {
+        {1,0},{-1,0}, {0,1}, {0,-1} //Horizontal & verticals
+    };
+
+    for (auto& dir : dirs) {
+        int rr = r + dir[0];
+        int cc = c + dir[1];
+
+        while (inBounds(rr,cc)) {
+            PieceType target = board.getPiece(rr,cc);
+            if (target == PieceType::NoPiece) {
+                legalMoves.push_back(Move(r,c,rr,cc));
+            }else {
+                if (isWhite != ::isWhite(target)) {
+                    legalMoves.push_back(Move(r,c,rr,cc));
+                }
+                break;
+            }
+            rr += dir[0];
+            cc += dir[1];
+        }
+    }
+}
+
+void Game::generateBishopMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const {
+    const int dirs[4][2] = {
+        {1,1}, {1,-1}, {-1,1}, {-1,-1} //Horizontal & verticals
+    };
+
+    for (auto& dir : dirs) {
+        int rr = r + dir[0];
+        int cc = c + dir[1];
+
+        while (inBounds(rr,cc)) {
+            PieceType target = board.getPiece(rr,cc);
+            if (target == PieceType::NoPiece) {
+                legalMoves.push_back(Move(r,c,rr,cc));
+            }else {
+                if (isWhite != ::isWhite(target)) {
+                    legalMoves.push_back(Move(r,c,rr,cc));
+                }
+                break;
+            }
+            rr += dir[0];
+            cc += dir[1];
+        }
+    }
+}
 
 void Game::generateKnightMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const {
-    PieceType Knight = board.getPiece(r, c);
+
+    const int dirs[8][2] = {
+        {-2, -1}, {-2,  1},
+        {-1, -2}, {-1,  2},
+        { 1, -2}, { 1,  2},
+        { 2, -1}, { 2,  1}
+    };
+
+    for (auto& dir : dirs) {
+        int rr = r + dir[0];
+        int cc = c + dir[1];
+
+        if (inBounds(rr,cc)) {
+            PieceType target = board.getPiece(rr,cc);
+
+            if (target == PieceType::NoPiece || isWhite != ::isWhite(target)) {
+                legalMoves.push_back(Move(r,c,rr,cc));
+            }
+        }
+    }
 }
 
 void Game::generatePawnMoves(int r, int c, std::vector<Move>& legalMoves, bool isWhite) const {
-    PieceType pawn = board.getPiece(r,c);
 
-
-    const int dir = isWhite ? +1 : -1;
-
-    const int startRow = isWhite ? 1 : 6;
-
+    const int dir = isWhite ? -1 : +1;
+    const int startRow = isWhite ? 6 : 1;
 
     int r1 = r + dir;
 
-    //Move forwards
+    //Single move forwards
     if (inBounds(r1,c) && board.getPiece(r1,c) == PieceType::NoPiece) {
         legalMoves.push_back(Move(r,c,r1,c));
+    }
+
+    //Double move
+    int r2 = r + 2*dir;
+    if (r == startRow && board.getPiece(r2,c) == PieceType::NoPiece) {
+        legalMoves.push_back(Move(r,c,r2,c));
+    }
+
+    //diagonal capture
+    for (int dc : {-1,1}) {
+        int cc = c + dc;
+        if (inBounds(r1,cc)) {
+            PieceType target = board.getPiece(r1,cc);
+            if (target != PieceType::NoPiece && isWhite != ::isWhite(target)) {
+                legalMoves.push_back(Move(r,c,r1,cc));
+            }
+        }
     }
 
 }

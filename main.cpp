@@ -32,7 +32,11 @@ int main() {
     Game game;
     Renderer renderer(pieceTextures);
 
+
+
+    std::cout << "Generated moves:\n";
     game.generateLegalMoves();
+    std::cout << "Done\n";
 
     while (renderer.isOpen()) {
 
