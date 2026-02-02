@@ -48,6 +48,12 @@ const PieceType (&Board::getBoard())[8][8] {
     return board;
 }
 
+void Board::updatePieces(int startX, int startY, int endX, int endY) {
+    PieceType piece = board[startX][startY];
+    board[startX][startY] = PieceType::NoPiece;
+    board[endX][endY] = piece;
+}
+
 bool Board::hasPiece(int x, int y) const{
     return board[x][y] != PieceType::NoPiece;
 }

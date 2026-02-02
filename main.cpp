@@ -22,6 +22,7 @@ int main() {
     };
 
     //loads textures to an array
+    //This has to be done here because of SMFL standards, the textures are passed to the renderer.
     std::array<sf::Texture, 12> pieceTextures;
     for (int i = 0; i < 12; ++i) {
         if (!pieceTextures[i].loadFromFile(pieces[i])) {
@@ -29,17 +30,18 @@ int main() {
         }
     }
 
+
+    //Initializes the game and renderer.
     Game game;
     Renderer renderer(pieceTextures);
-
 
 
     std::cout << "Generated moves:\n";
     game.generateLegalMoves();
     std::cout << "Done\n";
 
+    //Render Loop
     while (renderer.isOpen()) {
-
         renderer.render(game);
     }
 

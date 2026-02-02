@@ -10,6 +10,10 @@ Game::Game() {
 }
 
 
+void Game::updateBoard(const Move& move) {
+    board.updatePieces(move.startRow, move.startCol, move.endRow, move.endCol);
+}
+
 static bool inBounds(int r, int c) {
     return r >= 0 && r < 8 && c >= 0 && c < 8;
 }

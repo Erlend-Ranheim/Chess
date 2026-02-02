@@ -31,6 +31,7 @@ class Board {
         const PieceType (&getBoard())[8][8];
         bool hasPiece(int x, int y) const;
         PieceType getPiece(int x, int y) const;
+        void updatePieces(int startX, int startY, int endX, int endY);
         void movePiece(int startX, int startY, int endX, int endY);
         Board();
 };

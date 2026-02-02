@@ -28,6 +28,7 @@ class Game {
         Game();
         std::vector<Move> generateLegalMoves() const;
         const Board& getBoard() const {return board;}
+        void updateBoard(const Move& move);
 
 };
 
